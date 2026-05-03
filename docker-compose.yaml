@@ -1,7 +1,7 @@
 version: '3'
 services:
   my-js-app:
-    image: my-js-app:1.0
+    image: 250847881018.dkr.ecr.ca-central-1.amazonaws.com/my-app:1.0
     ports:
       - 3000:3000
     networks:
