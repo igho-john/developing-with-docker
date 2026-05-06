@@ -1,0 +1,340 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" viewBox="0 0 940 1400" role="img" style="font-family: Arial, sans-serif; background: #ffffff;">
+  <title>Docker CI/CD workflow with Git, Nexus, AWS ECR</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#534AB7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#0F6E56" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#BA7517" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#B91C1C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#166534" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-net" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-compose" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#0369A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-vol" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#B45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-ecr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#C2410C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-nexus" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#6D28D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-df" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#0F6E56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SECTION 1: DEVELOPER                      -->
+  <!-- ══════════════════════════════════════════ -->
+
+  <rect x="320" y="20" width="200" height="52" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="420" y="42" text-anchor="middle" font-size="14" font-weight="500" fill="#3C3489">Developer</text>
+  <text x="420" y="60" text-anchor="middle" font-size="12" fill="#534AB7">writes the application</text>
+
+  <!-- arrow dev to app -->
+  <line x1="420" y1="72" x2="420" y2="110" stroke="#534AB7" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- APP BOX + DOCKERFILE                      -->
+  <!-- ══════════════════════════════════════════ -->
+
+  <rect x="220" y="112" width="380" height="112" rx="12" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="410" y="134" text-anchor="middle" font-size="14" font-weight="500" fill="#3C3489">JavaScript application</text>
+  <rect x="236" y="148" width="160" height="60" rx="8" fill="#FBEAF0" stroke="#993556" stroke-width="0.5"/>
+  <text x="316" y="172" text-anchor="middle" font-size="13" font-weight="500" fill="#72243E">Frontend</text>
+  <text x="316" y="188" text-anchor="middle" font-size="11" fill="#993556">React / JS · port 3000</text>
+  <rect x="420" y="148" width="160" height="60" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="500" y="172" text-anchor="middle" font-size="13" font-weight="500" fill="#3C3489">Backend</text>
+  <text x="500" y="188" text-anchor="middle" font-size="11" fill="#534AB7">Node.js · port 8080</text>
+
+  <!-- DOCKERFILE -->
+  <rect x="626" y="112" width="186" height="170" rx="12" fill="#E8F5E9" stroke="#0F6E56" stroke-width="1"/>
+  <text x="719" y="134" text-anchor="middle" font-size="13" font-weight="500" fill="#1B5E20">Dockerfile</text>
+  <rect x="638" y="144" width="162" height="126" rx="6" fill="#C8E6C9" stroke="#0F6E56" stroke-width="0.5"/>
+  <text x="719" y="162" text-anchor="middle" font-size="10" font-weight="500" fill="#1B5E20">FROM node:20-alpine</text>
+  <text x="719" y="178" text-anchor="middle" font-size="10" fill="#2E7D32">WORKDIR /app</text>
+  <text x="719" y="194" text-anchor="middle" font-size="10" fill="#2E7D32">COPY package.json .</text>
+  <text x="719" y="210" text-anchor="middle" font-size="10" fill="#2E7D32">RUN npm install</text>
+  <text x="719" y="226" text-anchor="middle" font-size="10" fill="#2E7D32">COPY . .</text>
+  <text x="719" y="242" text-anchor="middle" font-size="10" fill="#2E7D32">EXPOSE 3000</text>
+  <text x="719" y="258" text-anchor="middle" font-size="10" fill="#2E7D32">CMD ["node","server.js"]</text>
+
+  <path d="M626 196 L580 196 L580 360" fill="none" stroke="#0F6E56" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arrow-df)"/>
+  <text x="600" y="290" text-anchor="middle" font-size="10" fill="#0F6E56" transform="rotate(-90 600 290)">used by docker build</text>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- GIT SECTION                               -->
+  <!-- ══════════════════════════════════════════ -->
+
+  <!-- arrow app to git -->
+  <line x1="410" y1="224" x2="410" y2="268" stroke="#B91C1C" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+  <text x="442" y="249" text-anchor="start" font-size="11" fill="#B91C1C">git commit</text>
+
+  <!-- Git box -->
+  <rect x="200" y="270" width="420" height="130" rx="12" fill="#FEF2F2" stroke="#B91C1C" stroke-width="1.5"/>
+  <text x="410" y="294" text-anchor="middle" font-size="14" font-weight="500" fill="#7F1D1D">Git — Version Control</text>
+  <text x="410" y="312" text-anchor="middle" font-size="11" fill="#B91C1C">github.com/igho-john/developing-with-docker</text>
+
+  <!-- git commands -->
+  <rect x="216" y="322" width="122" height="24" rx="6" fill="#FECACA" stroke="#B91C1C" stroke-width="0.5"/>
+  <text x="277" y="338" text-anchor="middle" font-size="10" fill="#7F1D1D">git add .</text>
+  <rect x="348" y="322" width="122" height="24" rx="6" fill="#FECACA" stroke="#B91C1C" stroke-width="0.5"/>
+  <text x="409" y="338" text-anchor="middle" font-size="10" fill="#7F1D1D">git commit -m "msg"</text>
+  <rect x="480" y="322" width="122" height="24" rx="6" fill="#FECACA" stroke="#B91C1C" stroke-width="0.5"/>
+  <text x="541" y="338" text-anchor="middle" font-size="10" fill="#7F1D1D">git push</text>
+
+  <!-- git branches -->
+  <rect x="216" y="354" width="375" height="36" rx="6" fill="#FECACA" stroke="#B91C1C" stroke-width="0.5"/>
+  <text x="403" y="368" text-anchor="middle" font-size="10" fill="#7F1D1D">branches: main · feature/* · bugfix/*</text>
+  <text x="403" y="382" text-anchor="middle" font-size="10" fill="#7F1D1D">git clone · git pull · git branch · git merge · git log</text>
+
+  <!-- arrow git down to build steps -->
+  <line x1="410" y1="400" x2="410" y2="444" stroke="#B91C1C" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+  <text x="442" y="425" text-anchor="start" font-size="11" fill="#B91C1C">git pull</text>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- BUILD STEPS                               -->
+  <!-- ══════════════════════════════════════════ -->
+
+  <rect x="220" y="446" width="360" height="160" rx="12" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="400" y="468" text-anchor="middle" font-size="14" font-weight="500" fill="#3C3489">Developer build steps (terminal)</text>
+  <rect x="236" y="480" width="328" height="28" rx="6" fill="#C8E6C9" stroke="#0F6E56" stroke-width="0.5"/>
+  <text x="400" y="498" text-anchor="middle" font-size="12" fill="#1B5E20">1 · docker build -t my-app:1.0 .</text>
+  <rect x="236" y="516" width="328" height="28" rx="6" fill="#FFEDD5" stroke="#C2410C" stroke-width="0.5"/>
+  <text x="400" y="534" text-anchor="middle" font-size="12" fill="#7C2D12">2a · docker push → AWS ECR</text>
+  <rect x="236" y="552" width="328" height="28" rx="6" fill="#EDE9FE" stroke="#6D28D9" stroke-width="0.5"/>
+  <text x="400" y="570" text-anchor="middle" font-size="12" fill="#4C1D95">2b · docker push → Nexus (on EC2)</text>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- DOCKER HUB                                -->
+  <!-- ══════════════════════════════════════════ -->
+
+  <rect x="20" y="270" width="168" height="52" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <text x="104" y="292" text-anchor="middle" font-size="14" font-weight="500" fill="#085041">Docker Hub</text>
+  <text x="104" y="310" text-anchor="middle" font-size="12" fill="#0F6E56">public registry</text>
+  <line x1="104" y1="322" x2="104" y2="360" stroke="#0F6E56" stroke-width="1.5" marker-end="url(#arrow-teal)"/>
+
+  <rect x="20" y="362" width="168" height="36" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <text x="104" y="378" text-anchor="middle" font-size="12" font-weight="500" fill="#085041">MongoDB image</text>
+  <text x="104" y="394" text-anchor="middle" font-size="10" fill="#0F6E56">port 27017</text>
+
+  <rect x="20" y="404" width="168" height="36" rx="6" fill="#DCFCE7" stroke="#166534" stroke-width="0.5"/>
+  <text x="104" y="420" text-anchor="middle" font-size="12" font-weight="500" fill="#14532D">Mongo Express</text>
+  <text x="104" y="436" text-anchor="middle" font-size="10" fill="#166634">port 8081</text>
+
+  <rect x="20" y="446" width="168" height="36" rx="6" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1"/>
+  <text x="104" y="462" text-anchor="middle" font-size="12" font-weight="500" fill="#4C1D95">sonatype/nexus3</text>
+  <text x="104" y="478" text-anchor="middle" font-size="10" fill="#6D28D9">Nexus image</text>
+
+  <!-- arrows docker hub to EC2 dev server -->
+  <path d="M188 380 L300 380 L300 800" fill="none" stroke="#0F6E56" stroke-width="1.5" marker-end="url(#arrow-teal)"/>
+  <path d="M188 422 L280 422 L280 800" fill="none" stroke="#166534" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+
+  <!-- nexus pulled from hub to nexus EC2 -->
+  <path d="M104 482 L104 620" fill="none" stroke="#6D28D9" stroke-width="1.5" marker-end="url(#arrow-nexus)"/>
+  <text x="60" y="554" text-anchor="middle" font-size="10" fill="#6D28D9">docker pull</text>
+
+  <!-- arrow build to nexus -->
+  <line x1="220" y1="564" x2="188" y2="700" stroke="#6D28D9" stroke-width="2" marker-end="url(#arrow-nexus)"/>
+  <text x="174" y="632" text-anchor="middle" font-size="10" fill="#6D28D9">docker push</text>
+
+  <!-- arrow build to ECR -->
+  <line x1="520" y1="534" x2="560" y2="700" stroke="#C2410C" stroke-width="2" marker-end="url(#arrow-ecr)"/>
+  <text x="560" y="614" text-anchor="start" font-size="10" fill="#C2410C">docker push</text>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- NEXUS EC2 SERVER                          -->
+  <!-- ══════════════════════════════════════════ -->
+
+  <rect x="20" y="622" width="188" height="226" rx="12" fill="#FFF7ED" stroke="#C2410C" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <text x="114" y="644" text-anchor="middle" font-size="12" font-weight="500" fill="#7C2D12">☁️ AWS EC2</text>
+  <text x="114" y="660" text-anchor="middle" font-size="11" fill="#C2410C">Nexus server</text>
+  <text x="114" y="676" text-anchor="middle" font-size="10" fill="#C2410C">15.222.238.137</text>
+
+  <rect x="32" y="684" width="164" height="148" rx="10" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
+  <text x="114" y="706" text-anchor="middle" font-size="12" font-weight="500" fill="#4C1D95">Nexus container</text>
+  <text x="114" y="722" text-anchor="middle" font-size="10" fill="#6D28D9">sonatype/nexus3</text>
+  <rect x="44" y="730" width="140" height="20" rx="4" fill="#DDD6FE" stroke="#6D28D9" stroke-width="0.5"/>
+  <text x="114" y="744" text-anchor="middle" font-size="10" fill="#4C1D95">UI: port 8082</text>
+  <rect x="44" y="756" width="140" height="20" rx="4" fill="#DDD6FE" stroke="#6D28D9" stroke-width="0.5"/>
+  <text x="114" y="770" text-anchor="middle" font-size="10" fill="#4C1D95">Docker: port 8083</text>
+  <rect x="44" y="782" width="140" height="20" rx="4" fill="#FEF3C7" stroke="#B45309" stroke-width="0.5"/>
+  <text x="114" y="796" text-anchor="middle" font-size="10" fill="#78350F">vol: nexus-data ✅</text>
+  <text x="114" y="818" text-anchor="middle" font-size="9" fill="#0369A1">started by compose ✅</text>
+  <text x="114" y="832" text-anchor="middle" font-size="9" fill="#0F6E56">image from Docker Hub ✅</text>
+
+  <!-- nexus to dev server -->
+  <line x1="114" y1="848" x2="114" y2="1000" stroke="#6D28D9" stroke-width="2" marker-end="url(#arrow-nexus)"/>
+  <text x="60" y="928" text-anchor="middle" font-size="10" fill="#6D28D9">docker pull</text>
+  <text x="60" y="942" text-anchor="middle" font-size="10" fill="#6D28D9">from Nexus</text>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- AWS ECR                                   -->
+  <!-- ══════════════════════════════════════════ -->
+
+  <rect x="330" y="702" width="400" height="100" rx="12" fill="#FFF7ED" stroke="#C2410C" stroke-width="1.5"/>
+  <text x="530" y="724" text-anchor="middle" font-size="14" font-weight="500" fill="#7C2D12">☁️ AWS ECR</text>
+  <text x="530" y="742" text-anchor="middle" font-size="12" fill="#C2410C">Elastic Container Registry</text>
+  <text x="530" y="760" text-anchor="middle" font-size="11" fill="#C2410C">250847881018.dkr.ecr.ca-central-1.amazonaws.com</text>
+  <rect x="342" y="770" width="376" height="22" rx="6" fill="#FED7AA" stroke="#C2410C" stroke-width="0.5"/>
+  <text x="530" y="785" text-anchor="middle" font-size="10" fill="#7C2D12">JS app image stored here · aws ecr get-login-password | docker login</text>
+
+  <!-- ECR to dev server -->
+  <line x1="530" y1="802" x2="530" y2="1000" stroke="#C2410C" stroke-width="2" marker-end="url(#arrow-ecr)"/>
+  <text x="552" y="910" text-anchor="start" font-size="10" fill="#C2410C">docker pull</text>
+  <text x="552" y="924" text-anchor="start" font-size="10" fill="#C2410C">from ECR</text>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- DOCKER COMPOSE FILE                       -->
+  <!-- ══════════════════════════════════════════ -->
+
+  <rect x="752" y="270" width="168" height="430" rx="12" fill="#E0F2FE" stroke="#0369A1" stroke-width="1"/>
+  <text x="836" y="292" text-anchor="middle" font-size="12" font-weight="500" fill="#0C4A6E">docker-compose.yaml</text>
+  <rect x="764" y="302" width="144" height="386" rx="6" fill="#BAE6FD" stroke="#0369A1" stroke-width="0.5"/>
+  <text x="836" y="320" text-anchor="middle" font-size="9" font-weight="500" fill="#0C4A6E">services:</text>
+  <text x="836" y="336" text-anchor="middle" font-size="9" fill="#0369A1">  my-js-app:</text>
+  <text x="836" y="350" text-anchor="middle" font-size="8" fill="#C2410C">    image: ecr-url/my-app:1.0</text>
+  <text x="836" y="364" text-anchor="middle" font-size="9" fill="#0369A1">    ports: 3000:3000</text>
+  <text x="836" y="380" text-anchor="middle" font-size="9" fill="#7C3AED">    networks: mongo-network</text>
+  <text x="836" y="396" text-anchor="middle" font-size="9" fill="#0369A1">  mongodb:</text>
+  <text x="836" y="410" text-anchor="middle" font-size="9" fill="#0369A1">    image: mongo</text>
+  <text x="836" y="424" text-anchor="middle" font-size="9" fill="#B45309">    volumes:</text>
+  <text x="836" y="438" text-anchor="middle" font-size="9" fill="#B45309">      - mongo-data:/data/db</text>
+  <text x="836" y="454" text-anchor="middle" font-size="9" fill="#7C3AED">    networks: mongo-network</text>
+  <text x="836" y="470" text-anchor="middle" font-size="9" fill="#0369A1">  mongo-express:</text>
+  <text x="836" y="484" text-anchor="middle" font-size="9" fill="#0369A1">    image: mongo-express</text>
+  <text x="836" y="498" text-anchor="middle" font-size="9" fill="#0369A1">    ports: 8081:8081</text>
+  <text x="836" y="514" text-anchor="middle" font-size="9" fill="#7C3AED">    networks: mongo-network</text>
+  <text x="836" y="530" text-anchor="middle" font-size="9" fill="#6D28D9">  nexus:</text>
+  <text x="836" y="544" text-anchor="middle" font-size="9" fill="#6D28D9">    image: sonatype/nexus3</text>
+  <text x="836" y="558" text-anchor="middle" font-size="9" fill="#6D28D9">    ports: 8082:8081</text>
+  <text x="836" y="572" text-anchor="middle" font-size="9" fill="#6D28D9">           8083:8083</text>
+  <text x="836" y="588" text-anchor="middle" font-size="9" fill="#B45309">    volumes: nexus-data</text>
+  <text x="836" y="604" text-anchor="middle" font-size="9" fill="#7C3AED">    networks: mongo-network</text>
+  <text x="836" y="620" text-anchor="middle" font-size="9" fill="#0369A1">volumes:</text>
+  <text x="836" y="634" text-anchor="middle" font-size="9" fill="#B45309">  mongo-data:</text>
+  <text x="836" y="648" text-anchor="middle" font-size="9" fill="#B45309">  nexus-data:</text>
+  <text x="836" y="664" text-anchor="middle" font-size="9" fill="#0369A1">networks:</text>
+  <text x="836" y="678" text-anchor="middle" font-size="9" fill="#7C3AED">  mongo-network:</text>
+
+  <!-- compose arrow to dev server -->
+  <path d="M752 580 L736 580 L736 1050 L680 1050" fill="none" stroke="#0369A1" stroke-width="2" marker-end="url(#arrow-compose)"/>
+  <text x="722" y="830" text-anchor="middle" font-size="9" fill="#0369A1" transform="rotate(-90 722 830)">docker compose up -d</text>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- DOCKER VOLUMES                            -->
+  <!-- ══════════════════════════════════════════ -->
+
+  <rect x="752" y="716" width="168" height="160" rx="12" fill="#FEF3C7" stroke="#B45309" stroke-width="1"/>
+  <text x="836" y="738" text-anchor="middle" font-size="12" font-weight="500" fill="#78350F">Docker Volumes</text>
+  <rect x="764" y="748" width="144" height="28" rx="6" fill="#FDE68A" stroke="#B45309" stroke-width="0.5"/>
+  <text x="836" y="766" text-anchor="middle" font-size="11" font-weight="500" fill="#78350F">mongo-data → /data/db</text>
+  <rect x="764" y="782" width="144" height="28" rx="6" fill="#FDE68A" stroke="#B45309" stroke-width="0.5"/>
+  <text x="836" y="800" text-anchor="middle" font-size="11" font-weight="500" fill="#78350F">nexus-data → /nexus-data</text>
+  <text x="836" y="828" text-anchor="middle" font-size="10" fill="#166534">data persists on restart ✅</text>
+  <text x="836" y="844" text-anchor="middle" font-size="10" fill="#166534">survives container stop ✅</text>
+  <text x="836" y="860" text-anchor="middle" font-size="10" fill="#B45309">driver: local</text>
+
+  <path d="M752 790 L710 790 L710 1060" fill="none" stroke="#B45309" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrow-vol)"/>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- DEV SERVER + DOCKER NETWORK               -->
+  <!-- ══════════════════════════════════════════ -->
+
+  <rect x="20" y="1002" width="710" height="290" rx="14" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="375" y="1026" text-anchor="middle" font-size="14" font-weight="500" fill="#0C447C">Dev server (EC2) — docker compose up -d</text>
+
+  <!-- Docker Network -->
+  <rect x="34" y="1040" width="682" height="236" rx="10" fill="#F3EEFF" stroke="#7C3AED" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <text x="375" y="1062" text-anchor="middle" font-size="13" font-weight="500" fill="#5B21B6">Docker Network: mongo-network</text>
+  <text x="375" y="1078" text-anchor="middle" font-size="11" fill="#7C3AED">all containers talk to each other by container name — no IP needed</text>
+
+  <!-- JS app -->
+  <rect x="46" y="1090" width="156" height="170" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="124" y="1112" text-anchor="middle" font-size="12" font-weight="500" fill="#3C3489">JS app</text>
+  <text x="124" y="1128" text-anchor="middle" font-size="10" fill="#993556">Frontend React</text>
+  <text x="124" y="1142" text-anchor="middle" font-size="10" fill="#534AB7">Backend Node.js</text>
+  <text x="124" y="1156" text-anchor="middle" font-size="10" fill="#534AB7">port 3000/8080</text>
+  <text x="124" y="1172" text-anchor="middle" font-size="9" fill="#C2410C">image: ECR ✅</text>
+  <text x="124" y="1186" text-anchor="middle" font-size="9" fill="#0F6E56">Dockerfile ✅</text>
+  <text x="124" y="1200" text-anchor="middle" font-size="9" fill="#B91C1C">git: igho-john/docker ✅</text>
+  <text x="124" y="1214" text-anchor="middle" font-size="9" fill="#7C3AED">name: my-js-app</text>
+  <text x="124" y="1248" text-anchor="middle" font-size="9" fill="#7C3AED"/>
+
+  <!-- MongoDB -->
+  <rect x="218" y="1090" width="156" height="170" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <text x="296" y="1112" text-anchor="middle" font-size="12" font-weight="500" fill="#085041">MongoDB</text>
+  <text x="296" y="1128" text-anchor="middle" font-size="10" fill="#0F6E56">database</text>
+  <text x="296" y="1142" text-anchor="middle" font-size="10" fill="#0F6E56">port 27017</text>
+  <text x="296" y="1158" text-anchor="middle" font-size="9" fill="#B45309">vol: mongo-data</text>
+  <text x="296" y="1172" text-anchor="middle" font-size="9" fill="#B45309">→ /data/db ✅</text>
+  <text x="296" y="1188" text-anchor="middle" font-size="9" fill="#0F6E56">image: Docker Hub ✅</text>
+  <text x="296" y="1204" text-anchor="middle" font-size="9" fill="#7C3AED">name: mongodb</text>
+
+  <!-- Mongo Express -->
+  <rect x="390" y="1090" width="156" height="170" rx="8" fill="#DCFCE7" stroke="#166534" stroke-width="0.5"/>
+  <text x="468" y="1112" text-anchor="middle" font-size="12" font-weight="500" fill="#14532D">Mongo Express</text>
+  <text x="468" y="1128" text-anchor="middle" font-size="10" fill="#166634">UI for MongoDB</text>
+  <text x="468" y="1142" text-anchor="middle" font-size="10" fill="#166634">port 8081</text>
+  <text x="468" y="1158" text-anchor="middle" font-size="9" fill="#0F6E56">image: Docker Hub ✅</text>
+  <text x="468" y="1174" text-anchor="middle" font-size="9" fill="#7C3AED">name: mongo-express</text>
+  <text x="468" y="1190" text-anchor="middle" font-size="9" fill="#0369A1">managed by compose ✅</text>
+
+  <!-- Nexus container -->
+  <rect x="562" y="1090" width="142" height="170" rx="8" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
+  <text x="633" y="1112" text-anchor="middle" font-size="12" font-weight="500" fill="#4C1D95">Nexus</text>
+  <text x="633" y="1128" text-anchor="middle" font-size="10" fill="#6D28D9">private registry</text>
+  <text x="633" y="1142" text-anchor="middle" font-size="10" fill="#6D28D9">UI: port 8082</text>
+  <text x="633" y="1156" text-anchor="middle" font-size="10" fill="#6D28D9">Docker: port 8083</text>
+  <text x="633" y="1172" text-anchor="middle" font-size="9" fill="#B45309">vol: nexus-data ✅</text>
+  <text x="633" y="1186" text-anchor="middle" font-size="9" fill="#0F6E56">image: Docker Hub ✅</text>
+  <text x="633" y="1200" text-anchor="middle" font-size="9" fill="#7C3AED">name: nexus</text>
+  <text x="633" y="1216" text-anchor="middle" font-size="9" fill="#C2410C">15.222.238.137</text>
+
+  <!-- network connection arrows -->
+  <line x1="202" y1="1175" x2="216" y2="1175" stroke="#7C3AED" stroke-width="2" stroke-dasharray="4 2" marker-end="url(#arrow-net)"/>
+  <text x="209" y="1167" text-anchor="middle" font-size="8" fill="#7C3AED">mongodb:27017</text>
+  <line x1="374" y1="1175" x2="388" y2="1175" stroke="#7C3AED" stroke-width="2" stroke-dasharray="4 2" marker-end="url(#arrow-net)"/>
+  <text x="381" y="1167" text-anchor="middle" font-size="8" fill="#7C3AED">mongodb:27017</text>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- LEGEND                                    -->
+  <!-- ══════════════════════════════════════════ -->
+  <line x1="20" y1="1308" x2="920" y2="1308" stroke="#B4B2A9" stroke-width="0.5"/>
+  <rect x="20" y="1314" width="8" height="8" rx="1" fill="#FEF2F2" stroke="#B91C1C"/>
+  <text x="34" y="1323" font-size="10" fill="#444441">Git</text>
+  <rect x="70" y="1314" width="8" height="8" rx="1" fill="#EEEDFE" stroke="#534AB7"/>
+  <text x="84" y="1323" font-size="10" fill="#444441">JS app</text>
+  <rect x="140" y="1314" width="8" height="8" rx="1" fill="#E1F5EE" stroke="#0F6E56"/>
+  <text x="154" y="1323" font-size="10" fill="#444441">MongoDB</text>
+  <rect x="220" y="1314" width="8" height="8" rx="1" fill="#DCFCE7" stroke="#166534"/>
+  <text x="234" y="1323" font-size="10" fill="#444441">Mongo Express</text>
+  <rect x="330" y="1314" width="8" height="8" rx="1" fill="#EDE9FE" stroke="#6D28D9"/>
+  <text x="344" y="1323" font-size="10" fill="#444441">Nexus</text>
+  <rect x="400" y="1314" width="8" height="8" rx="1" fill="#E8F5E9" stroke="#0F6E56"/>
+  <text x="414" y="1323" font-size="10" fill="#444441">Dockerfile</text>
+  <rect x="480" y="1314" width="8" height="8" rx="1" fill="#FFEDD5" stroke="#C2410C"/>
+  <text x="494" y="1323" font-size="10" fill="#444441">AWS ECR</text>
+  <rect x="554" y="1314" width="8" height="8" rx="1" fill="#FEF3C7" stroke="#B45309"/>
+  <text x="568" y="1323" font-size="10" fill="#444441">Docker Volume</text>
+  <rect x="660" y="1314" width="8" height="8" rx="1" fill="#E0F2FE" stroke="#0369A1"/>
+  <text x="674" y="1323" font-size="10" fill="#444441">Docker Compose</text>
+  <rect x="768" y="1314" width="8" height="8" rx="1" fill="#F3EEFF" stroke="#7C3AED"/>
+  <text x="782" y="1323" font-size="10" fill="#444441">Docker Network</text>
+
+  <text x="470" y="1360" text-anchor="middle" font-size="11" fill="#6B7280" font-style="italic">git push → docker build → push to Nexus/ECR → docker compose up on EC2 dev server</text>
+  <text x="470" y="1378" text-anchor="middle" font-size="11" fill="#B91C1C" font-style="italic">Next: Jenkins automates this entire flow on every git push 🚀</text>
+</svg>
