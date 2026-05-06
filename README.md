@@ -1,6 +1,6 @@
 ## demo app - developing with Docker
 
-![Alt text](/Docker-workflow.svg)
+![Alt text](/workflow.svg)
 
 This demo app shows a simple user profile app set up using 
 - index.html with pure js and css styles
