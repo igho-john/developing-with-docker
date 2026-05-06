@@ -1,4 +1,3 @@
-version: '3'
 services:
   my-js-app:
     image: 250847881018.dkr.ecr.ca-central-1.amazonaws.com/my-app:1.0
@@ -35,8 +34,21 @@ services:
     networks:
       - mongo-network
 
+  nexus:
+    image: sonatype/nexus3
+    container_name: nexus
+    ports:
+      - 8082:8081
+      - 8083:8083
+    volumes:
+      - nexus-data:/nexus-data
+    networks:
+      - mongo-network
+
 volumes:
   mongo-data:
+    driver: local
+  nexus-data:
     driver: local
 
 networks:
